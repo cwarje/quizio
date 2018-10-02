@@ -1,6 +1,7 @@
 var AdminView = function (model) {
     this.model = model;
-    this.addQuestionEvent = new Event(this);
+    this.addQuestionEvent    = new Event(this);
+    this.removeQuestionEvent = new Event(this);
 
     this.init();
 }
@@ -16,30 +17,35 @@ AdminView.prototype = {
 
     createChildren: function () {
         this.$container = $('.js-container');
-        this.$questionsContainer = this.$container.find('.questions-container');
-        this.$addQuestionButton = this.$container.find('.add-question-button');
+        this.$questionsContainer   = this.$container.find('.questions-container');
+        this.$addQuestionButton    = this.$container.find('.add-question-button');
+        this.$removeQuestionButton = this.$container.find('.remove-question-button');
 
         return this;
     },
 
     setupHandlers: function () {
-        this.addQuestionButtonHandler = this.addQuestionButton.bind(this);
+        this.addQuestionButtonHandler    = this.addQuestionButton.bind(this);
+        this.removeQuestionButtonHandler = this.removeQuestionButton.bind(this);
 
         /**
         Handlers from Event Dispatcher
         */
         this.addQuestionHandler = this.addQuestion.bind(this);
+        this.removeQuestionHandler = this.removeQuestion.bind(this);
 
         return this;
     },
 
     enable: function () {
         this.$addQuestionButton.click(this.addQuestionButtonHandler);
+        this.$removeQuestionButton.click(this.removeQuestionButtonHandler);
 
         /**
         * Event Dispatcher
         */
         this.model.addQuestionEvent.attach(this.addQuestionHandler);
+        this.model.removeQuestionEvent.attach(this.removeQuestionHandler);
 
         return this;
     },
@@ -50,6 +56,10 @@ AdminView.prototype = {
 
     addQuestionButton: function () {
         this.addQuestionEvent.notify();
+    },
+
+    removeQuestionButton: function () {
+        this.removeQuestionEvent.notify();
     },
 
     show: function () {
@@ -67,9 +77,9 @@ AdminView.prototype = {
         for (var question in questions) {
 
             html = "<div>";
-            $questionsContainer.append(html + "<input type='checkbox' class='js-task' data-index='" + index + "' data-task-selected='false'>" + "<input type='text' name='description" + index + "' value='" + questions[question].description + "'></div>");
-            // Delete button
-            $questionsContainer.append("<button>Delete</button>")
+            $questionsContainer.append(html + "Question Text*<br><input type='text' name='description" + index 
+            + "' value='" + questions[question].description + "'></div>");
+            $questionsContainer.append();
             index++;
         }
 
@@ -77,6 +87,10 @@ AdminView.prototype = {
 
     /* --------Handlers-From-Event-Dispatcher--------- */
     addQuestion: function () {
+        this.show();
+    },
+
+    removeQuestion: function () {
         this.show();
     }
     /* --------End-Handlers-From-Event-Dispatcher--------- */

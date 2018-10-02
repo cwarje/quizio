@@ -9,6 +9,7 @@ var AdminModel = function () {
         correctAnswer: ""
     }];
     this.addQuestionEvent = new Event();
+    this.removeQuestionEvent = new Event();
     // there will be a save quiz event here later.
     //maybe keep a global variable of the number of questions, changing when delete is pressed and when add is pressed, to make the iterating easier? we'll see.
 };
@@ -27,8 +28,9 @@ AdminModel.prototype = {
         this.addQuestionEvent.notify();
     },
 
-    removeQuestion: function (index) {
-        delete this.questions[index];
+    removeQuestion: function () {
+        this.questions.pop();
+        this.removeQuestionEvent.notify();
     },
 
     getQuestions: function () {
