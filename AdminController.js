@@ -14,21 +14,28 @@ AdminController.prototype = {
     setupHandlers: function () {
         this.addQuestionHandler = this.addQuestion.bind(this);
         this.removeQuestionHandler = this.removeQuestion.bind(this);
+        this.saveHandler = this.save.bind(this);
         return this;
     },
 
     enable: function () {
         this.view.addQuestionEvent.attach(this.addQuestionHandler);
         this.view.removeQuestionEvent.attach(this.removeQuestionHandler);
+        this.view.saveEvent.attach(this.saveHandler);
         return this;
     },
 
-    addQuestion: function (sender, args) {
+    addQuestion: function () {
         this.model.addQuestion();
     },
 
-    removeQuestion: function (params) {
+    removeQuestion: function () {
         this.model.removeQuestion();
+    },
+
+    save: function (sender, args) {
+        // just save the whole thing
+        this.model.save(args);
     },
 
 }
