@@ -79,7 +79,10 @@ AdminView.prototype = {
             html = "<div>";
             $questionsContainer.append(html + "Question Text*<br><input type='text' name='description" + index 
             + "' value='" + questions[question].description + "'></div>");
-            $questionsContainer.append();
+            $questionsContainer.append("Answers*<br><input type='radio' name='ans1radio'><input type='text' name='ans1' value='" + questions[question].answers.ans1 + "'>");
+            $questionsContainer.append("<br><input type='radio' name='ans2radio'><input type='text' name='ans2' value='" + questions[question].answers.ans2 + "'>");
+            $questionsContainer.append("<br><input type='radio' name='ans3radio'><input type='text' name='ans3' value='" + questions[question].answers.ans3 + "'>");
+            $questionsContainer.append("<br><input type='radio' name='ans4radio'><input type='text' name='ans4' value='" + questions[question].answers.ans4 + "'>");
             index++;
         }
 
