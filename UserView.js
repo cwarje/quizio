@@ -72,16 +72,48 @@ UserView.prototype = {
 
         let index = 0;
         for(var question in quiz) {
-            $quizContainer.append("<div class='card'><div class='card-body'><h5 class='card-title'>" + quiz[question].description + "</h5></div></div>");
-            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans0'><p class='quiz-question-option'>" + quiz[question].answers.ans0 + "</p><br>");
-            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans1'><p class='quiz-question-option'>" + quiz[question].answers.ans1 + "</p><br>");
-            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans2'><p class='quiz-question-option'>" + quiz[question].answers.ans2 + "</p><br>");
-            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans3'><p class='quiz-question-option'>" + quiz[question].answers.ans3 + "</p>");
+            
+            let cardTemplate = `
+            <div class='card'>
+                <div class='card-body'>
+                <form>
+                    <h5 class='card-title'>${quiz[question].description}</h5>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans0">
+                            <label class="form-check-label" for="q${index}ans0">
+                                ${quiz[question].answers.ans0}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans1">
+                            <label class="form-check-label" for="q${index}ans1">
+                                ${quiz[question].answers.ans1}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans2">
+                            <label class="form-check-label" for="q${index}ans2">
+                                ${quiz[question].answers.ans2}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans3">
+                            <label class="form-check-label" for="q${index}ans3">
+                                ${quiz[question].answers.ans3}
+                            </label>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            `;
+
+
+
+            $quizContainer.append(cardTemplate);
 
             index++;
-            // $quizContainer.append(quiz[question]);
-
-            // console.log(quiz[question]);
         }
     },
 

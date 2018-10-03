@@ -122,15 +122,48 @@ AdminView.prototype = {
         let index = 0;
         for (var question in questions) {
 
-            html = "<div>";
-            $questionsContainer.append(html + "Question Text*<br><input type='text' id='description" + index 
-            + "' value='" + questions[question].description + "'></div>");
-            $questionsContainer.append("Answers*<br>");
-            $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans0'><input type='text' id='" + "q" + index + "option0' value='" + questions[question].answers.ans0 + "'><br>");
-            $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans1'><input type='text' id='" + "q" + index + "option1' value='" + questions[question].answers.ans1 + "'><br>");
-            $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans2'><input type='text' id='" + "q" + index + "option2' value='" + questions[question].answers.ans2 + "'><br>");
-            $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans3'><input type='text' id='" + "q" + index + "option3' value='" + questions[question].answers.ans3 + "'>");
-            index++;
+            let cardTemplate = `
+            <div class='card'>
+                <div class='card-body'>
+                <form>
+                    <div class="form-group">
+                        <label for="description${index}">Question*</label><br>
+                        <input type='text' id='description${index}' value='${questions[question].description}'>
+                    </div>
+                    <div class="form-group">
+                        <label for="q${index}ans0">Answers*</label><br>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans0">
+                            <label class="form-check-label" for="q${index}ans0">
+                                <input type="text" id="q${index}option0" value="${questions[question].answers.ans0}">
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans1">
+                            <label class="form-check-label" for="q${index}ans1">
+                                <input type="text" id="q${index}option1" value="${questions[question].answers.ans1}">
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans2">
+                            <label class="form-check-label" for="q${index}ans2">
+                                <input type="text" id="q${index}option2" value="${questions[question].answers.ans2}">
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans3">
+                            <label class="form-check-label" for="q${index}ans3">
+                                <input type="text" id="q${index}option3" value="${questions[question].answers.ans3}">
+                            </label>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            `;
+
+            $questionsContainer.append(cardTemplate);
+            index++
 
             radiobtn = document.getElementById(questions[question].correctAnswer);
             if (radiobtn != null){
