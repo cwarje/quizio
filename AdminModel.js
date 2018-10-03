@@ -14,7 +14,6 @@ var AdminModel = function () {
     this.removeQuestionEvent = new Event();
     this.saveEvent = new Event();
     this.count = 1; // number of quiz questions.
-    //maybe keep a global variable of the number of questions, changing when delete is pressed and when add is pressed, to make the iterating easier? we'll see.
 };
 
 AdminModel.prototype = {
@@ -43,13 +42,10 @@ AdminModel.prototype = {
     },
 
     getQuestions: function () {
-        //console.log(this.questions);
         return this.questions;
     },
 
     storeQuiz: function (quiz) {
-        //console.log(quiz);
-        // set this.questiobs = quiz. and then store in local storage.
         this.questions = quiz;
         localStorage.setItem('quiz', JSON.stringify(this.questions));
     },
