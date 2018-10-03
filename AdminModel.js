@@ -47,7 +47,7 @@ AdminModel.prototype = {
         return this.questions;
     },
 
-    save: function (quiz) {
+    storeQuiz: function (quiz) {
         //console.log(quiz);
         // set this.questiobs = quiz. and then store in local storage.
         this.questions = quiz;

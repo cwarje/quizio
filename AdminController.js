@@ -37,7 +37,7 @@ AdminController.prototype = {
 
     save: function (sender, args) {
         // just save the whole thing
-        this.model.save(args);
+        this.model.storeQuiz(args);
     },
 
 }
