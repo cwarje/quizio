@@ -63,31 +63,26 @@ UserView.prototype = {
     },
 
     buildQuiz: function () {
-        // var questions = this.model.getQuestions();
-        // var html = "";
-        // var $questionsContainer = this.$questionsContainer;
+        let quiz = this.model.retrieveQuiz();
+        //console.log(quiz);
+        let html = "";
+        let $quizContainer = this.$quizContainer;
 
-        // $questionsContainer.html('');
+        $quizContainer.html('');
 
-        // var index = 0;
-        // for (var question in questions) {
+        let index = 0;
+        for(var question in quiz) {
+            $quizContainer.append("<div class='card'><div class='card-body'><h5 class='card-title'>" + quiz[question].description + "</h5></div></div>");
+            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans0'><p class='quiz-question-option'>" + quiz[question].answers.ans0 + "</p><br>");
+            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans1'><p class='quiz-question-option'>" + quiz[question].answers.ans1 + "</p><br>");
+            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans2'><p class='quiz-question-option'>" + quiz[question].answers.ans2 + "</p><br>");
+            $quizContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans3'><p class='quiz-question-option'>" + quiz[question].answers.ans3 + "</p>");
 
-        //     html = "<div>";
-        //     $questionsContainer.append(html + "Question Text*<br><input type='text' id='description" + index
-        //         + "' value='" + questions[question].description + "'></div>");
-        //     $questionsContainer.append("Answers*<br>");
-        //     $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans0'><input type='text' id='" + "q" + index + "option0' value='" + questions[question].answers.ans0 + "'><br>");
-        //     $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans1'><input type='text' id='" + "q" + index + "option1' value='" + questions[question].answers.ans1 + "'><br>");
-        //     $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans2'><input type='text' id='" + "q" + index + "option2' value='" + questions[question].answers.ans2 + "'><br>");
-        //     $questionsContainer.append("<input type='radio' name='q" + index + "radio' id='q" + index + "ans3'><input type='text' id='" + "q" + index + "option3' value='" + questions[question].answers.ans3 + "'>");
-        //     index++;
+            index++;
+            // $quizContainer.append(quiz[question]);
 
-        //     radiobtn = document.getElementById(questions[question].correctAnswer);
-        //     if (radiobtn != null) {
-        //         radiobtn.checked = true;
-        //     }
-        // }
-
+            // console.log(quiz[question]);
+        }
     },
 
     /* --------Handlers-From-Event-Dispatcher--------- */

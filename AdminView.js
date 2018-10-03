@@ -113,13 +113,13 @@ AdminView.prototype = {
     },
 
     buildQuestionList: function () {
-        var questions = this.model.getQuestions();
-        var html = "";
-        var $questionsContainer = this.$questionsContainer;
+        let questions = this.model.getQuestions();
+        let html = "";
+        let $questionsContainer = this.$questionsContainer;
 
         $questionsContainer.html('');
 
-        var index = 0;
+        let index = 0;
         for (var question in questions) {
 
             html = "<div>";
