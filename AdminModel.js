@@ -3,10 +3,10 @@ var AdminModel = function () {
         description: "",
         answers:
         {
+            ans0: "",
             ans1: "",
             ans2: "",
-            ans3: "",
-            ans4: ""
+            ans3: ""
         },
         correctAnswer: ""
     }];
@@ -18,15 +18,17 @@ var AdminModel = function () {
 };
 
 AdminModel.prototype = {
-    addQuestion: function () {
+    addQuestion: function (potentiallyModifiedQuiz) {
+        this.questions = potentiallyModifiedQuiz;
+
         this.questions.push({
             description: "",
             answers:
                 {
+                    ans0:"",
                     ans1:"",
                     ans2:"",
-                    ans3:"",
-                    ans4:""
+                    ans3:""
                 },
             correctAnswer:""
         });
@@ -41,12 +43,12 @@ AdminModel.prototype = {
     },
 
     getQuestions: function () {
-        console.log(this.questions);
+        //console.log(this.questions);
         return this.questions;
     },
 
     save: function (quiz) {
-        console.log(quiz);
+        //console.log(quiz);
         // set this.questiobs = quiz. and then store in local storage.
         this.questions = quiz;
         localStorage.setItem('quiz', JSON.stringify(this.questions));

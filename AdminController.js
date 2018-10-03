@@ -25,12 +25,14 @@ AdminController.prototype = {
         return this;
     },
 
-    addQuestion: function () {
-        this.model.addQuestion();
+    addQuestion: function (sender, args) {
+        this.model.addQuestion(args);
     },
 
     removeQuestion: function () {
-        this.model.removeQuestion();
+        if (this.model.getCount() > 0){ // nothing should happen when you try to remove zero questions.
+            this.model.removeQuestion();
+        }
     },
 
     save: function (sender, args) {
