@@ -93,12 +93,50 @@ UserView.prototype = {
         for(let question = 0; question < numQuestions; question++){
 
             let correctAnswer = this.model.getCorrectAnswer(index);
-            console.log(correctAnswer);
+            console.log("Correct: " + correctAnswer);
 
             let chosenAnswer = this.model.getChosenAnswer(index);
-            console.log(chosenAnswer);
+            console.log("Chosen: " + chosenAnswer);
+
+            let label0 = `<label class="form-check-label" for="q${index}ans0">`
+            let label1 = `<label class="form-check-label" for="q${index}ans1">`
+            let label2 = `<label class="form-check-label" for="q${index}ans2">`
+            let label3 = `<label class="form-check-label" for="q${index}ans3">`
+
+            if (chosenAnswer != correctAnswer && chosenAnswer === `q${index}ans0`) {
+                label0 = `<label class="form-check-label" for="q${index}ans0" style="color:red">`
+            
+            } else if (chosenAnswer != correctAnswer && chosenAnswer === `q${index}ans1`) {
+                label1 = `<label class="form-check-label" for="q${index}ans1" style="color:red">`
+
+            } else if (chosenAnswer != correctAnswer && chosenAnswer === `q${index}ans2`) {
+                label2 = `<label class="form-check-label" for="q${index}ans2" style="color:red">`
+
+            } else if (chosenAnswer != correctAnswer && chosenAnswer === `q${index}ans3`) {
+                label3 = `<label class="form-check-label" for="q${index}ans3" style="color:red">`
+
+            }
+
+            //determine the 4 variables.
+            if (correctAnswer === `q${index}ans0`){
+                label0 = `<label class="form-check-label" for="q${index}ans0" style="color:green">`
 
 
+            } else if (correctAnswer === `q${index}ans1`) {
+                label1 = `<label class="form-check-label" for="q${index}ans1" style="color:green">`
+
+
+            } else if (correctAnswer === `q${index}ans2`) {
+                label2 = `<label class="form-check-label" for="q${index}ans2" style="color:green">`
+
+
+            } else if (correctAnswer === `q${index}ans3`) {
+                label3 = `<label class="form-check-label" for="q${index}ans3" style="color:green">`
+
+
+            }
+            
+            
 
 
             let cardTemplate = `
@@ -109,25 +147,25 @@ UserView.prototype = {
                     <div class="form-group">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans0">
-                            <label class="form-check-label" for="q${index}ans0" style="color:red">
+                            ${label0}
                                 ${quiz[question].answers.ans0}
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans1">
-                            <label class="form-check-label" for="q${index}ans1">
+                            ${label1}
                                 ${quiz[question].answers.ans1}
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans2">
-                            <label class="form-check-label" for="q${index}ans2">
+                            ${label2}
                                 ${quiz[question].answers.ans2}
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans3">
-                            <label class="form-check-label" for="q${index}ans3">
+                            ${label3}
                                 ${quiz[question].answers.ans3}
                             </label>
                         </div>
