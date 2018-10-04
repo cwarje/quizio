@@ -138,6 +138,11 @@ UserView.prototype = {
             `;
             $quizContainer.append(cardTemplate);
             index++;
+
+            radiobtn = document.getElementById(chosenAnswer);
+            if (radiobtn != null) {
+                radiobtn.checked = true;
+            }
         }
     },
 
