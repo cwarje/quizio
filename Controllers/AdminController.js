@@ -1,3 +1,4 @@
+// Admin Controller
 var AdminController = function (model, view) {
     this.model = model;
     this.view = view;
@@ -6,11 +7,14 @@ var AdminController = function (model, view) {
 };
 
 AdminController.prototype = {
+    
+    // Binds functions to handlers and sets up event handlers.
     init: function () {
         this.setupHandlers()
             .enable();
     },
 
+    // Binds functions to event handlers.
     setupHandlers: function () {
         this.addQuestionHandler    = this.addQuestion.bind(this);
         this.removeQuestionHandler = this.removeQuestion.bind(this);
@@ -18,6 +22,7 @@ AdminController.prototype = {
         return this;
     },
 
+    // Adds handlers to view events.
     enable: function () {
         this.view.addQuestionEvent.attach(this.addQuestionHandler);
         this.view.removeQuestionEvent.attach(this.removeQuestionHandler);
@@ -25,17 +30,19 @@ AdminController.prototype = {
         return this;
     },
 
+    // Passes the addQuestion arguments to the model.
     addQuestion: function (sender, args) {
         this.model.addQuestion(args);
     },
 
+    // Removes a question from the quiz if there are questions to remove.
     removeQuestion: function () {
-        // Nothing should happen when one tries to remove zero questions.
         if (this.model.getCount() > 0) { 
             this.model.removeQuestion();
         }
     },
 
+    // Tells the model to save the quiz.
     save: function (sender, args) {
         this.model.storeQuiz(args);
     },

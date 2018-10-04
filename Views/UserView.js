@@ -1,3 +1,4 @@
+// The user view that displays the elements needed to take a quiz.
 var UserView = function (model) {
     this.model       = model;
     this.submitEvent = new Event(this);
@@ -8,6 +9,7 @@ var UserView = function (model) {
 
 UserView.prototype = {
 
+    // Initializes the view.
     init: function () {
         this.createChildren()
             .setupHandlers()
@@ -15,6 +17,7 @@ UserView.prototype = {
             .updateGUI();
     },
 
+    // Creates handles to elements on the DOM.
     createChildren: function () {
         this.$container     = $('.js-container');
         this.$quizContainer = this.$container.find('.quiz-container');
@@ -24,6 +27,7 @@ UserView.prototype = {
         return this;
     },
 
+    // Sets up handlers.
     setupHandlers: function () {
         this.submitButtonHandler = this.submitButton.bind(this);
 
@@ -34,6 +38,7 @@ UserView.prototype = {
         return this;
     },
 
+    // Adds handlers to button events and model events.
     enable: function () {
         this.$submitButton.click(this.submitButtonHandler);
 
@@ -44,15 +49,18 @@ UserView.prototype = {
         return this;
     },
 
+    // Refreshes the GUI.
     updateGUI: function () {
         this.show();
     },
 
+    // Gets the user's answers and notifies the submit event with those answers.
     submitButton: function () {
         let userAnswers = this.getUserAnswers();
         this.submitEvent.notify(userAnswers);
     },
 
+    // Gets the answers chosen by the user.
     getUserAnswers: function () {
         let finishedQuizAnswers = [];
         let quizSize            = this.model.getCount();
@@ -81,10 +89,12 @@ UserView.prototype = {
         return finishedQuizAnswers;
     },
     
+    // Builds the quiz created by the admin.
     show: function () {
         this.buildQuiz();
     },
 
+    // Shows the "No quiz available" message to the user.
     showNoQuizError: function () {
         let message                = this.model.getErrorMessage();
         let $errorMessageContainer = this.$errorMessage;
@@ -94,6 +104,7 @@ UserView.prototype = {
         $errorMessageContainer.append(messageTemplate);
     },
 
+    // Builds the marked quiz and appends it to the quiz container.
     buildMarkedQuiz: function () {
         let quiz           = this.model.retrieveQuiz();
         let numQuestions   = this.model.getCount();
@@ -177,6 +188,7 @@ UserView.prototype = {
         }
     },
 
+    // Builds the quiz from the local storage and appends it to the quiz container.
     buildQuiz: function () {
         let quiz           = this.model.retrieveQuiz();
         let $quizContainer = this.$quizContainer;
@@ -226,10 +238,13 @@ UserView.prototype = {
     },
 
     /* --------Handlers-From-Event-Dispatcher--------- */
+
+    // Shows the marked quiz when the submit button is pressed.
     submit: function () {
         this.buildMarkedQuiz();
     },
 
+    // Shows the error message when there is no quiz in the localstorage.
     noQuizError: function () {
         this.showNoQuizError();
     },

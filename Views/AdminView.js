@@ -1,3 +1,4 @@
+// The admin view that displays the elements needed to create a quiz.
 var AdminView = function (model) {
     this.model               = model;
     this.addQuestionEvent    = new Event(this);
@@ -9,6 +10,7 @@ var AdminView = function (model) {
 
 AdminView.prototype = {
 
+    // Initializes the view.
     init: function () {
         this.createChildren()
             .setupHandlers()
@@ -16,6 +18,7 @@ AdminView.prototype = {
             .updateGUI();
     },
 
+    // Creates handles to elements on the DOM.
     createChildren: function () {
         this.$container            = $('.js-container');
         this.$questionsContainer   = this.$container.find('.questions-container');
@@ -26,12 +29,13 @@ AdminView.prototype = {
         return this;
     },
 
+    // Sets up handlers.
     setupHandlers: function () {
         this.addQuestionButtonHandler    = this.addQuestionButton.bind(this);
         this.removeQuestionButtonHandler = this.removeQuestionButton.bind(this);
         this.saveButtonHandler           = this.saveButton.bind(this);
 
-        // Handlers from Event Dispatcher
+        // Handlers from Event Dispatcher.
         this.addQuestionHandler    = this.addQuestion.bind(this);
         this.removeQuestionHandler = this.removeQuestion.bind(this);
         this.saveHandler           = this.save.bind(this);
@@ -39,6 +43,7 @@ AdminView.prototype = {
         return this;
     },
 
+    // Adds handlers to button events and model events.
     enable: function () {
         this.$addQuestionButton.click(this.addQuestionButtonHandler);
         this.$removeQuestionButton.click(this.removeQuestionButtonHandler);
@@ -52,25 +57,31 @@ AdminView.prototype = {
         return this;
     },
 
+    // Refreshes the GUI.
     updateGUI: function () {
         this.show();
     },
 
+    // Collects the user entered questions and triggers the
+    // add question event listeners, providing the updated quiz.
     addQuestionButton: function () {
         let updatedQuiz = this.scrapeModifiedQuiz();
         this.addQuestionEvent.notify(updatedQuiz);
     },
 
+    // Triggers the remove question event listeners.
     removeQuestionButton: function () {
         this.removeQuestionEvent.notify();
     },
 
+    // Collects the user entered questions and triggeres the
+    // save event listeners, providing the updated quiz.
     saveButton: function () {
         let updatedQuiz = this.scrapeModifiedQuiz();
         this.saveEvent.notify(updatedQuiz);
     },
 
-    // Builds the JSON object from the current user visible values.
+    // Builds a JSON object from the current user visible values.
     scrapeModifiedQuiz: function () {
         let updatedQuiz = [];
         let quizSize = this.model.getCount();
@@ -103,10 +114,12 @@ AdminView.prototype = {
         return updatedQuiz;
     },
 
+    // Shows the question list.
     show: function () {
         this.buildQuestionList();
     },
 
+    // Builds the list of questions and adds them to the DOM.
     buildQuestionList: function () {
         let questions           = this.model.getQuestions();
         let $questionsContainer = this.$questionsContainer;
@@ -167,14 +180,18 @@ AdminView.prototype = {
     },
 
     /* --------Handlers-From-Event-Dispatcher--------- */
+
+    // Shows the result of adding a question.
     addQuestion: function () {
         this.show();
     },
 
+    // Shows the result of removing a question.
     removeQuestion: function () {
         this.show();
     },
 
+    // Shows the result of saving.
     save: function () {
         this.show();
     }
