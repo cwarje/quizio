@@ -15,7 +15,6 @@ UserModel.prototype = {
             if(stringQuiz === null) {
                 this.noQuizEvent.notify();
             }
-            console.log(stringQuiz);
             this.quiz = JSON.parse(stringQuiz);
             return this.quiz;
         } else {
@@ -42,8 +41,7 @@ UserModel.prototype = {
 
     getErrorMessage: function () {
         return this.errorMessage;
-    },
-
+    }
 }
 
 
