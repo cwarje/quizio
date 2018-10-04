@@ -1,6 +1,7 @@
 var UserView = function (model) {
     this.model = model;
     this.submitEvent = new Event(this);
+    this.noQuizEvent = new Event(this);
 
     this.init();
 }
@@ -18,6 +19,7 @@ UserView.prototype = {
         this.$container = $('.js-container');
         this.$quizContainer = this.$container.find('.quiz-container');
         this.$submitButton = this.$container.find('.submit-button');
+        this.$errorMessage = this.$container.find('.error-message');
 
         return this;
     },
@@ -29,6 +31,7 @@ UserView.prototype = {
         Handlers from Event Dispatcher
         */
         this.submitHandler = this.submit.bind(this);
+        this.noQuizHandler = this.noQuizError.bind(this);
 
         return this;
     },
@@ -40,6 +43,7 @@ UserView.prototype = {
         * Event Dispatcher
         */
         this.model.submitEvent.attach(this.submitHandler);
+        this.model.noQuizEvent.attach(this.noQuizHandler);
 
         return this;
     },
@@ -83,6 +87,16 @@ UserView.prototype = {
         this.buildQuiz();
     },
 
+    showNoQuizError: function () {
+        let message = this.model.getErrorMessage();
+        let $errorMessageContainer = this.$errorMessage;
+        $errorMessageContainer.html('');
+        let messageTemplate = `
+            <h4>${message}</h4>
+        `;
+        $errorMessageContainer.append(messageTemplate);
+    },
+
     showMarkedQuiz: function () {
         let quiz = this.model.retrieveQuiz();
         let numQuestions = this.model.getCount();
@@ -93,10 +107,7 @@ UserView.prototype = {
         for(let question = 0; question < numQuestions; question++){
 
             let correctAnswer = this.model.getCorrectAnswer(index);
-            console.log("Correct: " + correctAnswer);
-
             let chosenAnswer = this.model.getChosenAnswer(index);
-            console.log("Chosen: " + chosenAnswer);
 
             let label0 = `<label class="form-check-label" for="q${index}ans0">`
             let label1 = `<label class="form-check-label" for="q${index}ans1">`
@@ -120,25 +131,14 @@ UserView.prototype = {
             //determine the 4 variables.
             if (correctAnswer === `q${index}ans0`){
                 label0 = `<label class="form-check-label" for="q${index}ans0" style="color:green">`
-
-
             } else if (correctAnswer === `q${index}ans1`) {
                 label1 = `<label class="form-check-label" for="q${index}ans1" style="color:green">`
-
-
             } else if (correctAnswer === `q${index}ans2`) {
                 label2 = `<label class="form-check-label" for="q${index}ans2" style="color:green">`
-
-
             } else if (correctAnswer === `q${index}ans3`) {
                 label3 = `<label class="form-check-label" for="q${index}ans3" style="color:green">`
-
-
             }
             
-            
-
-
             let cardTemplate = `
             <div class='card'>
                 <div class='card-body'>
@@ -187,7 +187,7 @@ UserView.prototype = {
 
     buildQuiz: function () {
         let quiz = this.model.retrieveQuiz();
-        //console.log(quiz);
+
         let html = "";
         let $quizContainer = this.$quizContainer;
 
@@ -241,7 +241,10 @@ UserView.prototype = {
     /* --------Handlers-From-Event-Dispatcher--------- */
     submit: function () {
         this.showMarkedQuiz();
-    }
-    /* --------End-Handlers-From-Event-Dispatcher--------- */
+    },
 
+    noQuizError: function () {
+        this.showNoQuizError();
+    },
+    /* --------End-Handlers-From-Event-Dispatcher--------- */
 }

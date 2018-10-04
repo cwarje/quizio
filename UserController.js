@@ -22,7 +22,6 @@ UserController.prototype = {
     },
 
     submit: function (sender, args) {
-        console.log("submit~");
         this.model.submitQuiz(args);
     },
 

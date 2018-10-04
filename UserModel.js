@@ -1,6 +1,8 @@
 var UserModel = function () {
     this.submitEvent = new Event();
+    this.noQuizEvent = new Event();
     this.quiz;
+    this.errorMessage = "Sorry, there's no quiz available at this time.";
     this.completedQuiz;
     this.answers = [];
 };
@@ -10,6 +12,10 @@ UserModel.prototype = {
     retrieveQuiz: function () {
         if (typeof(Storage) !== "undefined") {
             let stringQuiz = localStorage.getItem("quiz");
+            if(stringQuiz === null) {
+                this.noQuizEvent.notify();
+            }
+            console.log(stringQuiz);
             this.quiz = JSON.parse(stringQuiz);
             return this.quiz;
         } else {
@@ -18,8 +24,6 @@ UserModel.prototype = {
     },
 
     submitQuiz: function (completedQuiz) {
-        console.log(completedQuiz);
-        console.log(this.quiz);
         this.completedQuiz = completedQuiz;
         this.submitEvent.notify();
     },
@@ -34,7 +38,11 @@ UserModel.prototype = {
 
     getChosenAnswer: function (index) {
         return this.completedQuiz[index].chosenAnswer;
-    }
+    },
+
+    getErrorMessage: function () {
+        return this.errorMessage;
+    },
 
 }
 
