@@ -1,22 +1,26 @@
 var UserModel = function () {
-    this.submitEvent = new Event();
-    this.noQuizEvent = new Event();
+    this.submitEvent  = new Event();
+    this.noQuizEvent  = new Event();
+    this.errorMessage = "Sorry, there are no quiz available at this time.";
+    this.answers      = [];
     this.quiz;
-    this.errorMessage = "Sorry, there's no quiz available at this time.";
     this.completedQuiz;
-    this.answers = [];
 };
 
 UserModel.prototype = {
 
     retrieveQuiz: function () {
+
         if (typeof(Storage) !== "undefined") {
             let stringQuiz = localStorage.getItem("quiz");
-            if(stringQuiz === null) {
+
+            if (stringQuiz === null) {
                 this.noQuizEvent.notify();
             }
+
             this.quiz = JSON.parse(stringQuiz);
             return this.quiz;
+
         } else {
             console.log("Browser does not support local storage.")
         }

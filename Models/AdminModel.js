@@ -10,10 +10,10 @@ var AdminModel = function () {
         },
         correctAnswer: ""
     }];
-    this.addQuestionEvent = new Event();
+    this.addQuestionEvent    = new Event();
     this.removeQuestionEvent = new Event();
-    this.saveEvent = new Event();
-    this.count = 1; // number of quiz questions.
+    this.saveEvent           = new Event();
+    this.count               = 1; // Number of quiz questions.
 };
 
 AdminModel.prototype = {

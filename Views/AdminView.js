@@ -1,8 +1,8 @@
 var AdminView = function (model) {
-    this.model = model;
+    this.model               = model;
     this.addQuestionEvent    = new Event(this);
     this.removeQuestionEvent = new Event(this);
-    this.saveEvent = new Event(this);
+    this.saveEvent           = new Event(this);
 
     this.init();
 }
@@ -17,7 +17,7 @@ AdminView.prototype = {
     },
 
     createChildren: function () {
-        this.$container = $('.js-container');
+        this.$container            = $('.js-container');
         this.$questionsContainer   = this.$container.find('.questions-container');
         this.$addQuestionButton    = this.$container.find('.add-question-button');
         this.$removeQuestionButton = this.$container.find('.remove-question-button');
@@ -29,14 +29,12 @@ AdminView.prototype = {
     setupHandlers: function () {
         this.addQuestionButtonHandler    = this.addQuestionButton.bind(this);
         this.removeQuestionButtonHandler = this.removeQuestionButton.bind(this);
-        this.saveButtonHandler = this.saveButton.bind(this);
+        this.saveButtonHandler           = this.saveButton.bind(this);
 
-        /**
-        Handlers from Event Dispatcher
-        */
-        this.addQuestionHandler = this.addQuestion.bind(this);
+        // Handlers from Event Dispatcher
+        this.addQuestionHandler    = this.addQuestion.bind(this);
         this.removeQuestionHandler = this.removeQuestion.bind(this);
-        this.saveHandler = this.save.bind(this);
+        this.saveHandler           = this.save.bind(this);
 
         return this;
     },
@@ -46,9 +44,7 @@ AdminView.prototype = {
         this.$removeQuestionButton.click(this.removeQuestionButtonHandler);
         this.$saveButton.click(this.saveButtonHandler);
 
-        /**
-        * Event Dispatcher
-        */
+        // Event Dispatcher
         this.model.addQuestionEvent.attach(this.addQuestionHandler);
         this.model.removeQuestionEvent.attach(this.removeQuestionHandler);
         this.model.saveEvent.attach(this.saveHandler);
@@ -80,8 +76,8 @@ AdminView.prototype = {
         let quizSize = this.model.getCount();
         
         for (let i = 0; i < quizSize; i++) {
-            let correctAnswer = ""; // correct answer for each question
-            //determine correct answer
+            let correctAnswer = "";
+
             if (document.getElementById('q' + i + 'ans0').checked) {
                 correctAnswer = document.getElementById('q' + i + 'ans0').id;
             } else if (document.getElementById('q' + i + 'ans1').checked) {
@@ -91,7 +87,6 @@ AdminView.prototype = {
             } else if (document.getElementById('q' + i + 'ans3').checked) {
                 correctAnswer = document.getElementById('q' + i + 'ans3').id;
             }
-
 
             updatedQuiz.push({
                 description: document.getElementById("description" + i).value,
@@ -113,14 +108,12 @@ AdminView.prototype = {
     },
 
     buildQuestionList: function () {
-        let questions = this.model.getQuestions();
-        let html = "";
+        let questions           = this.model.getQuestions();
         let $questionsContainer = this.$questionsContainer;
 
         $questionsContainer.html('');
 
-        let index = 0;
-        for (var question in questions) {
+        for (var index in questions) {
 
             let cardTemplate = `
             <div class='card'>
@@ -128,32 +121,32 @@ AdminView.prototype = {
                 <form>
                     <div class="form-group">
                         <label for="description${index}">Question*</label><br>
-                        <input type='text' id='description${index}' value='${questions[question].description}'>
+                        <input type='text' id='description${index}' value='${questions[index].description}'>
                     </div>
                     <div class="form-group">
                         <label for="q${index}ans0">Answers*</label><br>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans0">
                             <label class="form-check-label" for="q${index}ans0">
-                                <input type="text" id="q${index}option0" value="${questions[question].answers.ans0}">
+                                <input type="text" id="q${index}option0" value="${questions[index].answers.ans0}">
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans1">
                             <label class="form-check-label" for="q${index}ans1">
-                                <input type="text" id="q${index}option1" value="${questions[question].answers.ans1}">
+                                <input type="text" id="q${index}option1" value="${questions[index].answers.ans1}">
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans2">
                             <label class="form-check-label" for="q${index}ans2">
-                                <input type="text" id="q${index}option2" value="${questions[question].answers.ans2}">
+                                <input type="text" id="q${index}option2" value="${questions[index].answers.ans2}">
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans3">
                             <label class="form-check-label" for="q${index}ans3">
-                                <input type="text" id="q${index}option3" value="${questions[question].answers.ans3}">
+                                <input type="text" id="q${index}option3" value="${questions[index].answers.ans3}">
                             </label>
                         </div>
                     </div>
@@ -163,14 +156,14 @@ AdminView.prototype = {
             `;
 
             $questionsContainer.append(cardTemplate);
-            index++
 
-            radiobtn = document.getElementById(questions[question].correctAnswer);
+            // To maintain the admin's correct answers
+            radiobtn = document.getElementById(questions[index].correctAnswer);
             if (radiobtn != null){
                 radiobtn.checked = true;
             }
-        }
 
+        }
     },
 
     /* --------Handlers-From-Event-Dispatcher--------- */

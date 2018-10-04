@@ -12,9 +12,9 @@ AdminController.prototype = {
     },
 
     setupHandlers: function () {
-        this.addQuestionHandler = this.addQuestion.bind(this);
+        this.addQuestionHandler    = this.addQuestion.bind(this);
         this.removeQuestionHandler = this.removeQuestion.bind(this);
-        this.saveHandler = this.save.bind(this);
+        this.saveHandler           = this.save.bind(this);
         return this;
     },
 
@@ -30,13 +30,13 @@ AdminController.prototype = {
     },
 
     removeQuestion: function () {
-        if (this.model.getCount() > 0){ // nothing should happen when you try to remove zero questions.
+        // Nothing should happen when one tries to remove zero questions.
+        if (this.model.getCount() > 0) { 
             this.model.removeQuestion();
         }
     },
 
     save: function (sender, args) {
-        // just save the whole thing
         this.model.storeQuiz(args);
     },
 
