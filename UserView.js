@@ -54,13 +54,93 @@ UserView.prototype = {
     },
 
     getUserAnswers: function () {
-        // get the user answers from the UI document.getElementById().
+        let finishedQuizAnswers = [];
+        let quizSize = this.model.getCount();
+
+        for (let i = 0; i < quizSize; i++) {
+            let chosenAnswer = ""; // correct answer for each question
+            //determine correct answer
+            if (document.getElementById('q' + i + 'ans0').checked) {
+                chosenAnswer = document.getElementById('q' + i + 'ans0').id;
+            } else if (document.getElementById('q' + i + 'ans1').checked) {
+                chosenAnswer = document.getElementById('q' + i + 'ans1').id;
+            } else if (document.getElementById('q' + i + 'ans2').checked) {
+                chosenAnswer = document.getElementById('q' + i + 'ans2').id;
+            } else if (document.getElementById('q' + i + 'ans3').checked) {
+                chosenAnswer = document.getElementById('q' + i + 'ans3').id;
+            }
+
+            finishedQuizAnswers.push(
+                {
+                    correctAnswer: this.model.getCorrectAnswer(i), // get the correct answer at the index from the quiz that's in the model.
+                    chosenAnswer: chosenAnswer
+                });
+        }
+        return finishedQuizAnswers;
     },
     
-
     show: function () {
         this.buildQuiz();
     },
+
+    showMarkedQuiz: function () {
+        let quiz = this.model.retrieveQuiz();
+        let numQuestions = this.model.getCount();
+        
+        let $quizContainer = this.$quizContainer;
+        $quizContainer.html('');
+        let index = 0;
+        for(let question = 0; question < numQuestions; question++){
+
+            let correctAnswer = this.model.getCorrectAnswer(index);
+            console.log(correctAnswer);
+
+            let chosenAnswer = this.model.getChosenAnswer(index);
+            console.log(chosenAnswer);
+
+
+
+
+            let cardTemplate = `
+            <div class='card'>
+                <div class='card-body'>
+                <form>
+                    <h5 class='card-title'>${quiz[question].description}</h5>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans0">
+                            <label class="form-check-label" for="q${index}ans0" style="color:red">
+                                ${quiz[question].answers.ans0}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans1">
+                            <label class="form-check-label" for="q${index}ans1">
+                                ${quiz[question].answers.ans1}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans2">
+                            <label class="form-check-label" for="q${index}ans2">
+                                ${quiz[question].answers.ans2}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans3">
+                            <label class="form-check-label" for="q${index}ans3">
+                                ${quiz[question].answers.ans3}
+                            </label>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            `;
+            $quizContainer.append(cardTemplate);
+            index++;
+        }
+    },
+
 
     buildQuiz: function () {
         let quiz = this.model.retrieveQuiz();
@@ -72,7 +152,7 @@ UserView.prototype = {
 
         let index = 0;
         for(var question in quiz) {
-            
+
             let cardTemplate = `
             <div class='card'>
                 <div class='card-body'>
@@ -109,8 +189,6 @@ UserView.prototype = {
             </div>
             `;
 
-
-
             $quizContainer.append(cardTemplate);
 
             index++;
@@ -119,7 +197,7 @@ UserView.prototype = {
 
     /* --------Handlers-From-Event-Dispatcher--------- */
     submit: function () {
-        this.show();
+        this.showMarkedQuiz();
     }
     /* --------End-Handlers-From-Event-Dispatcher--------- */
 

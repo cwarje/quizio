@@ -22,7 +22,7 @@ UserController.prototype = {
     },
 
     submit: function (sender, args) {
-        // just save the whole thing
+        console.log("submit~");
         this.model.submitQuiz(args);
     },
 
