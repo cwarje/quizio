@@ -134,32 +134,32 @@ AdminView.prototype = {
                 <form>
                     <div class="form-group">
                         <label for="description${index}">Question*</label><br>
-                        <input type='text' id='description${index}' value='${questions[index].description}'>
+                        <input type='text' id='description${index}' value='${questions[index].description}' class="desc">
                     </div>
                     <div class="form-group">
                         <label for="q${index}ans0">Answers*</label><br>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans0">
                             <label class="form-check-label" for="q${index}ans0">
-                                <input type="text" id="q${index}option0" value="${questions[index].answers.ans0}">
+                                <input type="text" id="q${index}option0" value="${questions[index].answers.ans0}" class="ans">
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans1">
                             <label class="form-check-label" for="q${index}ans1">
-                                <input type="text" id="q${index}option1" value="${questions[index].answers.ans1}">
+                                <input type="text" id="q${index}option1" value="${questions[index].answers.ans1}" class="desc">
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans2">
                             <label class="form-check-label" for="q${index}ans2">
-                                <input type="text" id="q${index}option2" value="${questions[index].answers.ans2}">
+                                <input type="text" id="q${index}option2" value="${questions[index].answers.ans2}" class="desc">
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${index}radio" id="q${index}ans3">
                             <label class="form-check-label" for="q${index}ans3">
-                                <input type="text" id="q${index}option3" value="${questions[index].answers.ans3}">
+                                <input type="text" id="q${index}option3" value="${questions[index].answers.ans3}" class="desc">
                             </label>
                         </div>
                     </div>

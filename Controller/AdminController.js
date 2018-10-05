@@ -46,5 +46,4 @@ AdminController.prototype = {
     save: function (sender, args) {
         this.model.storeQuiz(args);
     },
-
 }
