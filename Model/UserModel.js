@@ -35,6 +35,9 @@ UserModel.prototype = {
         let arr = [];
         arr.push(obj);
         this.quiz = arr[0];
+        if(this.quiz.length === 0){
+            this.noQuizEvent.notify();
+        }
         this.retrievedQuizEvent.notify();
     },
 

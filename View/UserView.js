@@ -16,7 +16,6 @@ UserView.prototype = {
         this.createChildren()
             .setupHandlers()
             .enable();
-        //.updateGUI();
         this.model.retrieveQuiz();
 
         this.quiz = this.model.getQuiz();
