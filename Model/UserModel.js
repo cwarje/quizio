@@ -1,9 +1,10 @@
 // User Model
 var UserModel = function () {
-    this.submitEvent  = new Event();
-    this.noQuizEvent  = new Event();
+    this.submitEvent = new Event();
+    this.noQuizEvent = new Event();
+    this.retrievedQuizEvent = new Event();
     this.errorMessage = "Sorry, there are no quiz available at this time.";
-    this.answers      = [];
+    this.answers = [];
     this.quiz;
     this.completedQuiz;
 };
@@ -11,23 +12,36 @@ var UserModel = function () {
 UserModel.prototype = {
 
     // Retrieve the quiz from the local storage if it exists.
-    retrieveQuiz: function () {
+    retrieveQuiz: async function () {
 
-        if (typeof(Storage) !== "undefined") {
-            let stringQuiz = localStorage.getItem("quiz");
+        let response = await new Promise(resolve => {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", URL, true);
+            xhr.onload = function (e) {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function () {
+                resolve(undefined);
+                console.error("** An error occurred during the XMLHttpRequest");
+            };
+            xhr.send();
+        });
 
-            if (stringQuiz === null) {
-                this.noQuizEvent.notify();
-            }
+        let respText = response;
+        this.quiz = JSON.parse(respText);
 
-            this.quiz = JSON.parse(stringQuiz);
-            return this.quiz;
-
-        } else {
-            console.log("Browser does not support local storage.")
-        }
+        var parsed = this.quiz.quiz.replace(/'/g, '"');
+        var obj = JSON.parse(parsed);
+        let arr = [];
+        arr.push(obj);
+        this.quiz = arr[0];
+        this.retrievedQuizEvent.notify();
     },
-    
+
+    getQuiz: function () {
+        return this.quiz;
+    },
+
     // Saves the completed quiz.
     submitQuiz: function (completedQuiz) {
         this.completedQuiz = completedQuiz;

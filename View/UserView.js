@@ -1,8 +1,10 @@
 // The user view that displays the elements needed to take a quiz.
 var UserView = function (model) {
-    this.model       = model;
+    this.model = model;
+    this.quiz;
     this.submitEvent = new Event(this);
     this.noQuizEvent = new Event(this);
+    this.retrievedQuizEvent = new Event(this);
 
     this.init();
 }
@@ -13,16 +15,19 @@ UserView.prototype = {
     init: function () {
         this.createChildren()
             .setupHandlers()
-            .enable()
-            .updateGUI();
+            .enable();
+        //.updateGUI();
+        this.model.retrieveQuiz();
+
+        this.quiz = this.model.getQuiz();
     },
 
     // Creates handles to elements on the DOM.
     createChildren: function () {
-        this.$container     = $('.js-container');
+        this.$container = $('.js-container');
         this.$quizContainer = this.$container.find('.quiz-container');
-        this.$submitButton  = this.$container.find('.submit-button');
-        this.$errorMessage  = this.$container.find('.error-message');
+        this.$submitButton = this.$container.find('.submit-button');
+        this.$errorMessage = this.$container.find('.error-message');
 
         return this;
     },
@@ -34,6 +39,7 @@ UserView.prototype = {
         // Handlers from Event Dispatcher
         this.submitHandler = this.submit.bind(this);
         this.noQuizHandler = this.noQuizError.bind(this);
+        this.retrievedQuizHandler = this.retrievedQuiz.bind(this);
 
         return this;
     },
@@ -45,13 +51,9 @@ UserView.prototype = {
         // Event Dispatcher
         this.model.submitEvent.attach(this.submitHandler);
         this.model.noQuizEvent.attach(this.noQuizHandler);
+        this.model.retrievedQuizEvent.attach(this.retrievedQuizHandler);
 
         return this;
-    },
-
-    // Refreshes the GUI.
-    updateGUI: function () {
-        this.show();
     },
 
     // Gets the user's answers and notifies the submit event with those answers.
@@ -63,12 +65,12 @@ UserView.prototype = {
     // Gets the answers chosen by the user.
     getUserAnswers: function () {
         let finishedQuizAnswers = [];
-        let quizSize            = this.model.getCount();
+        let quizSize = this.model.getCount();
 
         for (let i = 0; i < quizSize; i++) {
 
             let chosenAnswer = "";
-            
+
             if (document.getElementById('q' + i + 'ans0').checked) {
                 chosenAnswer = document.getElementById('q' + i + 'ans0').id;
             } else if (document.getElementById('q' + i + 'ans1').checked) {
@@ -88,7 +90,7 @@ UserView.prototype = {
 
         return finishedQuizAnswers;
     },
-    
+
     // Builds the quiz created by the admin.
     show: function () {
         this.buildQuiz();
@@ -96,9 +98,9 @@ UserView.prototype = {
 
     // Shows the "No quiz available" message to the user.
     showNoQuizError: function () {
-        let message                = this.model.getErrorMessage();
+        let message = this.model.getErrorMessage();
         let $errorMessageContainer = this.$errorMessage;
-        let messageTemplate        = `<h4>${message}</h4>`;
+        let messageTemplate = `<h4>${message}</h4>`;
 
         $errorMessageContainer.html('');
         $errorMessageContainer.append(messageTemplate);
@@ -106,16 +108,16 @@ UserView.prototype = {
 
     // Builds the marked quiz and appends it to the quiz container.
     buildMarkedQuiz: function () {
-        let quiz           = this.model.retrieveQuiz();
-        let numQuestions   = this.model.getCount();
+        let quiz = this.quiz;
+        let numQuestions = quiz.length;
         let $quizContainer = this.$quizContainer;
 
         $quizContainer.html('');
 
-        for(let question = 0; question < numQuestions; question++){
+        for (let question = 0; question < numQuestions; question++) {
 
             let correctAnswer = this.model.getCorrectAnswer(question);
-            let chosenAnswer  = this.model.getChosenAnswer(question);
+            let chosenAnswer = this.model.getChosenAnswer(question);
 
             let label0 = `<label class="form-check-label" for="q${question}ans0">`
             let label1 = `<label class="form-check-label" for="q${question}ans1">`
@@ -132,7 +134,7 @@ UserView.prototype = {
                 label3 = `<label class="form-check-label" for="q${question}ans3" style="color:red">`
             }
 
-            if (correctAnswer === `q${question}ans0`){
+            if (correctAnswer === `q${question}ans0`) {
                 label0 = `<label class="form-check-label" for="q${question}ans0" style="color:green">`
             } else if (correctAnswer === `q${question}ans1`) {
                 label1 = `<label class="form-check-label" for="q${question}ans1" style="color:green">`
@@ -141,7 +143,7 @@ UserView.prototype = {
             } else if (correctAnswer === `q${question}ans3`) {
                 label3 = `<label class="form-check-label" for="q${question}ans3" style="color:green">`
             }
-            
+
             let cardTemplate = `
                 <div class='card'>
                     <div class='card-body'>
@@ -190,12 +192,12 @@ UserView.prototype = {
 
     // Builds the quiz from the local storage and appends it to the quiz container.
     buildQuiz: function () {
-        let quiz           = this.model.retrieveQuiz();
+        let quiz = this.quiz;
         let $quizContainer = this.$quizContainer;
 
         $quizContainer.html('');
 
-        for(var question in quiz) {
+        for (var question in quiz) {
 
             let cardTemplate = `
             <div class='card'>
@@ -247,6 +249,11 @@ UserView.prototype = {
     // Shows the error message when there is no quiz in the localstorage.
     noQuizError: function () {
         this.showNoQuizError();
+    },
+
+    retrievedQuiz: function () {
+        this.quiz = this.model.getQuiz();
+        this.buildQuiz();
     },
     /* --------End-Handlers-From-Event-Dispatcher--------- */
 }

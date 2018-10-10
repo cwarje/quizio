@@ -7,7 +7,7 @@ var AdminController = function (model, view) {
 };
 
 AdminController.prototype = {
-    
+
     // Binds functions to handlers and sets up event handlers.
     init: function () {
         this.setupHandlers()
@@ -16,9 +16,9 @@ AdminController.prototype = {
 
     // Binds functions to event handlers.
     setupHandlers: function () {
-        this.addQuestionHandler    = this.addQuestion.bind(this);
+        this.addQuestionHandler = this.addQuestion.bind(this);
         this.removeQuestionHandler = this.removeQuestion.bind(this);
-        this.saveHandler           = this.save.bind(this);
+        this.saveHandler = this.save.bind(this);
         return this;
     },
 
@@ -37,7 +37,7 @@ AdminController.prototype = {
 
     // Removes a question from the quiz if there are questions to remove.
     removeQuestion: function () {
-        if (this.model.getCount() > 0) { 
+        if (this.model.getCount() > 0) {
             this.model.removeQuestion();
         }
     },

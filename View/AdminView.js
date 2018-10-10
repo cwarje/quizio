@@ -1,9 +1,9 @@
 // The admin view that displays the elements needed to create a quiz.
 var AdminView = function (model) {
-    this.model               = model;
-    this.addQuestionEvent    = new Event(this);
+    this.model = model;
+    this.addQuestionEvent = new Event(this);
     this.removeQuestionEvent = new Event(this);
-    this.saveEvent           = new Event(this);
+    this.saveEvent = new Event(this);
 
     this.init();
 }
@@ -20,25 +20,25 @@ AdminView.prototype = {
 
     // Creates handles to elements on the DOM.
     createChildren: function () {
-        this.$container            = $('.js-container');
-        this.$questionsContainer   = this.$container.find('.questions-container');
-        this.$addQuestionButton    = this.$container.find('.add-question-button');
+        this.$container = $('.js-container');
+        this.$questionsContainer = this.$container.find('.questions-container');
+        this.$addQuestionButton = this.$container.find('.add-question-button');
         this.$removeQuestionButton = this.$container.find('.remove-question-button');
-        this.$saveButton           = this.$container.find('.save-button');
+        this.$saveButton = this.$container.find('.save-button');
 
         return this;
     },
 
     // Sets up handlers.
     setupHandlers: function () {
-        this.addQuestionButtonHandler    = this.addQuestionButton.bind(this);
+        this.addQuestionButtonHandler = this.addQuestionButton.bind(this);
         this.removeQuestionButtonHandler = this.removeQuestionButton.bind(this);
-        this.saveButtonHandler           = this.saveButton.bind(this);
+        this.saveButtonHandler = this.saveButton.bind(this);
 
         // Handlers from Event Dispatcher.
-        this.addQuestionHandler    = this.addQuestion.bind(this);
+        this.addQuestionHandler = this.addQuestion.bind(this);
         this.removeQuestionHandler = this.removeQuestion.bind(this);
-        this.saveHandler           = this.save.bind(this);
+        this.saveHandler = this.save.bind(this);
 
         return this;
     },
@@ -85,7 +85,7 @@ AdminView.prototype = {
     scrapeModifiedQuiz: function () {
         let updatedQuiz = [];
         let quizSize = this.model.getCount();
-        
+
         for (let i = 0; i < quizSize; i++) {
             let correctAnswer = "";
 
@@ -121,7 +121,7 @@ AdminView.prototype = {
 
     // Builds the list of questions and adds them to the DOM.
     buildQuestionList: function () {
-        let questions           = this.model.getQuestions();
+        let questions = this.model.getQuestions();
         let $questionsContainer = this.$questionsContainer;
 
         $questionsContainer.html('');
@@ -172,7 +172,7 @@ AdminView.prototype = {
 
             // To maintain the admin's correct answers
             radiobtn = document.getElementById(questions[index].correctAnswer);
-            if (radiobtn != null){
+            if (radiobtn != null) {
                 radiobtn.checked = true;
             }
 
