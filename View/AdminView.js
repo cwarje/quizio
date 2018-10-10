@@ -78,25 +78,20 @@ AdminView.prototype = {
     // save event listeners, providing the updated quiz.
     saveButton: function () {
         let updatedQuiz = this.scrapeModifiedQuiz();
-        // determine if the quiz is completed.
-        console.log(updatedQuiz);
         let quizSize = updatedQuiz.length;
-        console.log(updatedQuiz.length);
+        let incompleteFlag = 0;
 
         for (let i = 0; i < quizSize; i++) {
-            console.log(updatedQuiz[i].correctAnswer);
-            if (updatedQuiz[i].correctAnswer === '') {
-                //modal "Not saved, please provide a correct answer for each question."
-                console.log("not complete!");
-                $("#mySaveModal").modal();
-            } else {
+            if (updatedQuiz[i].correctAnswer === '' ) {
+                incompleteFlag = 1;
+            } 
+        }
 
-                //save complete quiz;
-                this.saveEvent.notify(updatedQuiz);
-                $("#mySuccessModal").modal();
-                //modal "Saved"
-                //console.log("saved!")
-            }
+        if (incompleteFlag === 0 | quizSize === 0) { // All questions have answers.
+            this.saveEvent.notify(updatedQuiz);
+            $("#mySuccessModal").modal();
+        } else {
+            $("#mySaveModal").modal();
         }
     },
 
