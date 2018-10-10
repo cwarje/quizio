@@ -4,12 +4,15 @@
 <head>
     <title>Quizio Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="
-        crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="
+        crossorigin="anonymous"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Custom -->
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" />
     <!-- Bootstrap -->
-    <link href="Styles/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="Styles/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -20,6 +23,27 @@
         margin-left: 30px;">Add</button>
         <button class="remove-question-button btn btn-danger">Remove</button>
         <button class="save-button btn btn-warning">Save</button>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="mySaveModal" role="dialog">
+        <div class="modal-dialog">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Quiz Not Saved</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please ensure each quiz question has a correct answer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    
+        </div>
     </div>
 
     <script src="Utils/Constants.js"></script>
