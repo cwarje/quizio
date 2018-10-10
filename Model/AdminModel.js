@@ -11,7 +11,8 @@ var AdminModel = function () {
             ans2: "",
             ans3: ""
         },
-        correctAnswer: ""
+        correctAnswer: "",
+        tag: ""
     }];
     this.addQuestionEvent = new Event();
     this.removeQuestionEvent = new Event();
@@ -33,7 +34,8 @@ AdminModel.prototype = {
                 ans2: "",
                 ans3: ""
             },
-            correctAnswer: ""
+            correctAnswer: "",
+            tag: ""
         });
         this.addQuestionEvent.notify();
     },
@@ -66,11 +68,11 @@ AdminModel.prototype = {
 
         xhttp.send(jsonObj);
 
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log("model Saved!");
-            }
-        }
+        // xhttp.onreadystatechange = function () {
+        //     if (this.readyState == 4 && this.status == 200) {
+        //         console.log("model Saved!");
+        //     }
+        // }
     },
 
     // Converts the quiz to a consumable JSON string with single quotes.

@@ -102,6 +102,7 @@ AdminView.prototype = {
 
         for (let i = 0; i < quizSize; i++) {
             let correctAnswer = "";
+            let tag = "";
 
             if (document.getElementById('q' + i + 'ans0').checked) {
                 correctAnswer = document.getElementById('q' + i + 'ans0').id;
@@ -113,6 +114,14 @@ AdminView.prototype = {
                 correctAnswer = document.getElementById('q' + i + 'ans3').id;
             }
 
+            if (document.getElementById('q' + i + 'hard').checked) {
+                tag = "(Hard)";
+            } else if (document.getElementById('q' + i + 'easy').checked) {
+                tag = "(Easy)";
+            } else {
+                tag = "";
+            }
+
             updatedQuiz.push({
                 description: document.getElementById("description" + i).value,
                 answers:
@@ -122,8 +131,10 @@ AdminView.prototype = {
                     ans2: document.getElementById("q" + i + "option2").value,
                     ans3: document.getElementById("q" + i + "option3").value
                 },
-                correctAnswer: correctAnswer
+                correctAnswer: correctAnswer,
+                tag: tag
             });
+            console.log(updatedQuiz);
         }
         return updatedQuiz;
     },
@@ -177,6 +188,20 @@ AdminView.prototype = {
                             </label>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}difficulty" id="q${index}hard" value="hard">
+                            <label class="form-check-label" for="q${index}hard">
+                                <p>Hard</p>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input active" type="radio" name="q${index}difficulty" id="q${index}easy" value="easy">
+                            <label class="form-check-label" for="q${index}easy">
+                                <p>Easy</p>
+                            </label>
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -190,6 +215,15 @@ AdminView.prototype = {
                 radiobtn.checked = true;
             }
 
+            // Maintain the chosen tags
+            hardRadioButton = document.getElementById("q" + index + "hard");
+            if (questions[index].tag === "(Hard)") {
+                hardRadioButton.checked = true;
+            }
+            easyRadioButton = document.getElementById("q" + index + "easy");
+            if (questions[index].tag === "(Easy)") {
+                easyRadioButton.checked = true;
+            }
         }
     },
 

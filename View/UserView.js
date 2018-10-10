@@ -203,7 +203,7 @@ UserView.prototype = {
             <div class='card'>
                 <div class='card-body'>
                 <form>
-                    <h5 class='card-title'>${quiz[question].description}</h5>
+                    <h5 class='card-title'>${quiz[question].description} ${quiz[question].tag}</h5>
                     <div class="form-group">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="q${question}radio" id="q${question}ans0">
