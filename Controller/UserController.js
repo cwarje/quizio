@@ -29,17 +29,14 @@ UserController.prototype = {
     // Tells the model to submit the quiz for marking.
     submit: function (sender, args) {
         let score = this.determineScore(args);
-        //let score = 3;
         this.model.setScore(score);
         this.model.submitQuiz(args);
     },
 
+    // Determine's the user score.
     determineScore: function (args) {
-        console.log("args");
-        console.log(args);
         let score = 0;
         for (arg in args) {
-            console.log(args[arg]);
             let correct = args[arg].correctAnswer;
             let chosen = args[arg].chosenAnswer;
             if (correct === chosen) {

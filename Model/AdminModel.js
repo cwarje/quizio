@@ -67,12 +67,6 @@ AdminModel.prototype = {
         var jsonObj = JSON.stringify(data);
 
         xhttp.send(jsonObj);
-
-        // xhttp.onreadystatechange = function () {
-        //     if (this.readyState == 4 && this.status == 200) {
-        //         console.log("model Saved!");
-        //     }
-        // }
     },
 
     // Converts the quiz to a consumable JSON string with single quotes.

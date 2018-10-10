@@ -47,6 +47,7 @@ AdminController.prototype = {
         this.model.storeQuiz(args);
     }
 }
+// Double checks with user before leaving page.
 $(window).bind('beforeunload', function () {
     return 'Are you sure you want to leave?';
 });

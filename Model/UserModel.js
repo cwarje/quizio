@@ -42,6 +42,7 @@ UserModel.prototype = {
         this.retrievedQuizEvent.notify();
     },
 
+    // Gets the quiz
     getQuiz: function () {
         return this.quiz;
     },

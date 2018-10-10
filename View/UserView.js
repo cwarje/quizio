@@ -243,7 +243,7 @@ UserView.prototype = {
         let denom = this.model.getCount();
         let numer = score; // get the number of quesitons and append here.
         let $scoreContainer = this.$score;
-        let messageTemplate = `<h4>${numer}/${denom}</h4>`;
+        let messageTemplate = `<h4>Score: ${numer}/${denom}</h4>`;
 
         $scoreContainer.html('');
         $scoreContainer.append(messageTemplate);
