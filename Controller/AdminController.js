@@ -45,5 +45,8 @@ AdminController.prototype = {
     // Tells the model to save the quiz.
     save: function (sender, args) {
         this.model.storeQuiz(args);
-    },
+    }
 }
+$(window).bind('beforeunload', function () {
+    return 'Are you sure you want to leave?';
+});

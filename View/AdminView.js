@@ -90,8 +90,10 @@ AdminView.prototype = {
                 console.log("not complete!");
                 $("#mySaveModal").modal();
             } else {
+
                 //save complete quiz;
                 this.saveEvent.notify(updatedQuiz);
+                $("#mySuccessModal").modal();
                 //modal "Saved"
                 //console.log("saved!")
             }
