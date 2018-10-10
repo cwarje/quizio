@@ -13,3 +13,8 @@
 .ans {
     width: 100%;
 }
+
+#score {
+    margin-left: 30px;
+    margin-top: 5px;
+}

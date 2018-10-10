@@ -7,6 +7,7 @@ var UserModel = function () {
     this.answers = [];
     this.quiz;
     this.completedQuiz;
+    this.score;
 };
 
 UserModel.prototype = {
@@ -69,7 +70,17 @@ UserModel.prototype = {
     // Gets the "No Quiz Available" error message.
     getErrorMessage: function () {
         return this.errorMessage;
-    }
+    },
+
+    // Get the score of the submitted quiz.
+    getScore: function () {
+        return this.score;
+    },
+
+    // Set the score of the submitted quiz.
+    setScore: function (score) {
+        this.score = score;
+    },
 }
 
 

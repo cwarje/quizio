@@ -27,6 +27,7 @@ UserView.prototype = {
         this.$quizContainer = this.$container.find('.quiz-container');
         this.$submitButton = this.$container.find('.submit-button');
         this.$errorMessage = this.$container.find('.error-message');
+        this.$score = this.$container.find('.score');
 
         return this;
     },
@@ -238,11 +239,25 @@ UserView.prototype = {
         }
     },
 
+    showScore: function (score) {
+        let denom = this.model.getCount();
+        let numer = score; // get the number of quesitons and append here.
+        let $scoreContainer = this.$score;
+        let messageTemplate = `<h4>${numer}/${denom}</h4>`;
+
+        $scoreContainer.html('');
+        $scoreContainer.append(messageTemplate);
+    },
+
     /* --------Handlers-From-Event-Dispatcher--------- */
 
     // Shows the marked quiz when the submit button is pressed.
     submit: function () {
         this.buildMarkedQuiz();
+        // get score from the model.
+        let score = this.model.getScore();
+        this.showScore(score);
+        
     },
 
     // Shows the error message when there is no quiz in the localstorage.
@@ -250,6 +265,7 @@ UserView.prototype = {
         this.showNoQuizError();
     },
 
+    // Gets the quiz from the model and displays it.
     retrievedQuiz: function () {
         this.quiz = this.model.getQuiz();
         this.buildQuiz();
