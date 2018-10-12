@@ -197,7 +197,7 @@ UserView.prototype = {
 
         $quizContainer.html('');
 
-        for (var question in quiz) {
+        for (let question in quiz) {
 
             let cardTemplate = `
             <div class='card'>

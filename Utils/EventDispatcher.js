@@ -12,7 +12,7 @@ Event.prototype = {
 
     // Runs all the functions in this._listeners.
     notify: function (args) {
-        for (var i = 0; i < this._listeners.length; i += 1) {
+        for (let i = 0; i < this._listeners.length; i += 1) {
             this._listeners[i](this._sender, args);
         }
     }

@@ -151,7 +151,7 @@ AdminView.prototype = {
 
         $questionsContainer.html('');
 
-        for (var index in questions) {
+        for (let index in questions) {
 
             let cardTemplate = `
             <div class='card'>

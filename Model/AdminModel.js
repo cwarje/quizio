@@ -58,13 +58,13 @@ AdminModel.prototype = {
         // needs to use the double quoted version.
         let formattedQuiz = this.replaceDoubleQuotesWithSingleQuotes(quiz);
 
-        var xhttp = new XMLHttpRequest();
+        let xhttp = new XMLHttpRequest();
         xhttp.open("PUT", URL, true);
         xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-        var data = {};
+        let data = {};
         data.json = formattedQuiz;
-        var jsonObj = JSON.stringify(data);
+        let jsonObj = JSON.stringify(data);
 
         xhttp.send(jsonObj);
     },
@@ -75,7 +75,7 @@ AdminModel.prototype = {
         let stringQuiz = JSON.stringify(quiz);
 
         // Replace double quotes with single quotes.
-        var stringQuizReplacedQuotes = stringQuiz.replace(/"/g, "'");
+        let stringQuizReplacedQuotes = stringQuiz.replace(/"/g, "'");
 
         return (stringQuizReplacedQuotes);
 

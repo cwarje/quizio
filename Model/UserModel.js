@@ -16,7 +16,7 @@ UserModel.prototype = {
     retrieveQuiz: async function () {
 
         let response = await new Promise(resolve => {
-            var xhr = new XMLHttpRequest();
+            let xhr = new XMLHttpRequest();
             xhr.open("GET", URL, true);
             xhr.onload = function (e) {
                 resolve(xhr.response);
@@ -31,8 +31,8 @@ UserModel.prototype = {
         let respText = response;
         this.quiz = JSON.parse(respText);
 
-        var parsed = this.quiz.quiz.replace(/'/g, '"');
-        var obj = JSON.parse(parsed);
+        let parsed = this.quiz.quiz.replace(/'/g, '"');
+        let obj = JSON.parse(parsed);
         let arr = [];
         arr.push(obj);
         this.quiz = arr[0];
